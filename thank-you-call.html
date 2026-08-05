@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Дякуємо за замовлення!</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f4f6f9; color: #333; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+        .success-card { background: #ffffff; max-width: 450px; width: 100%; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); text-align: center; }
+        .icon { font-size: 50px; color: #2980b9; margin-bottom: 15px; }
+        h1 { font-size: 22px; color: #2c3e50; margin-bottom: 15px; }
+        p { font-size: 15px; color: #555; line-height: 1.6; margin-bottom: 25px; }
+        .badge { background: #ebf5fb; color: #2980b9; padding: 8px 12px; border-radius: 6px; font-size: 13px; font-weight: bold; display: inline-block; margin-bottom: 20px; }
+        .btn { display: inline-block; background: #4a235a; color: #fff; text-decoration: none; padding: 12px 25px; border-radius: 6px; font-weight: bold; transition: background 0.2s; }
+        .btn:hover { background: #351940; }
+    </style>
+	<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '2468493400325332');
+fbq('track', 'PageView');
+
+// Рядок відстеження покупки додано сюди:
+fbq('track', 'Purchase', {value: 849, currency: 'UAH'});
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=2468493400325332&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+</head>
+<body>
+
+<div class="success-card">
+    <div class="icon">📞</div>
+    <h1>Дякуємо за замовлення!</h1>
+    <div class="badge">Очікуйте дзвінка менеджера</div>
+    <p>Менеджер зв'яжеться з вами найближчим часом для уточнення деталей замовлення та підтвердження розмірів/кольорів.</p>
+    <a href="index.html" class="btn">Повернутися до каталогу</a>
+</div>
+
+</body>
+</html>

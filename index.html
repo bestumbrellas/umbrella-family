@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Парасольки для всієї родини</title>
+    <!-- Захист від копіювання, правого кліка та відкриття коду -->
+    <script>
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            return false;
+        });
+        document.addEventListener('selectstart', function(e) { e.preventDefault(); });
+        document.addEventListener('dragstart', function(e) { e.preventDefault(); });
+        document.addEventListener('keydown', function(e) {
+            if (e.keyCode === 123 || 
+                (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) || 
+                (e.ctrlKey && e.keyCode === 85)) {
+                e.preventDefault();
+                return false;
+            }
+        });
+    </script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #f4f6f9;
+            color: #333;
+            line-height: 1.6;
+            padding-bottom: 85px; /* Місце під плаваючу панель знизу */
+        }
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            background: #ffffff;
+            min-height: 100vh;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        /* Верхній банер */
+        .top-banner {
+            background: #4a235a;
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+        }
+        .banner-header {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        .btn-cart-top {
+            background: #e67e22;
+            color: #fff;
+            padding: 6px 12px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            border: none;
+        }
+        /* Писаний шрифт для назви */
+        .store-title {
+            font-size: 26px;
+            font-family: 'Brush Script MT', 'Lucida Handwriting', 'Pacifico', cursive;
+            font-weight: normal;
+            letter-spacing: 1px;
+            margin: 5px 0 12px 0;
+            color: #fce4ec;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        /* Звужений білий акційний блок */
+        .promo-box {
+            background: #ffffff;
+            margin: 0 auto;
+            max-width: 90%;
+            padding: 14px;
+            border-radius: 8px;
+            text-align: center;
+            color: #333333;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+        /* Сітка товарів */
+        .catalog-grid {
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .product-card {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .product-card img, .product-img {
+            width: 100%;
+            height: 260px;
+            object-fit: contain;
+            background: #ffffff;
+            padding: 12px 12px 0 12px;
+            box-sizing: border-box;
+        }
+        .product-info {
+            padding: 10px 15px 15px 15px;
+            text-align: center;
+        }
+        .product-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #222;
+            margin-bottom: 5px;
+        }
+        .product-price {
+            font-size: 22px;
+            font-weight: bold;
+            color: #e44d26;
+            margin-bottom: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+        }
+        .old-price {
+            text-decoration: line-through;
+            color: #888888;
+            font-size: 15px;
+            font-weight: normal;
+        }
+        .btn-details {
+            display: block;
+            text-align: center;
+            background: #e74c3c;
+            color: #fff;
+            text-decoration: none;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background 0.2s;
+            margin-top: 10px;
+        }
+        .btn-details:hover {
+            background: #c0392b;
+        }
+
+        /* Блок відгуків (Карусель) */
+        .reviews-section {
+            background: #4a235a;
+            color: #fff;
+            padding: 25px 15px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        .reviews-title {
+            font-size: 20px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+        .reviews-subtitle {
+            font-size: 14px;
+            color: #e8daef;
+            margin-bottom: 20px;
+        }
+        .carousel-container {
+            position: relative;
+            max-width: 100%;
+            overflow: hidden;
+        }
+        .carousel-track {
+            display: flex;
+            transition: transform 0.4s ease-in-out;
+        }
+        .review-card {
+            min-width: 100%;
+            background: #fff;
+            color: #333;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: left;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        .review-header {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 12px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 8px;
+            font-weight: bold;
+        }
+        .review-text {
+            font-size: 14px;
+            color: #444;
+            line-height: 1.5;
+        }
+        .carousel-btns {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .carousel-btn {
+            background: #e74c3c;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .carousel-btn:hover {
+            background: #c0392b;
+        }
+
+        /* Блок Як замовити */
+        .howto-section {
+            padding: 25px 15px;
+            background: #f9f9f9;
+        }
+        .howto-title {
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            color: #222;
+        }
+        .howto-step {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+        }
+        .howto-icon {
+            width: 56px;
+            height: 56px;
+            background: #f3eef7; /* Зроблено світлішим під колір шапки */
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            flex-shrink: 0;
+            border: 1px solid #e1d5e7;
+        }
+        .howto-desc h3 {
+            font-size: 15px;
+            color: #222;
+            margin-bottom: 3px;
+        }
+        .howto-desc p {
+            font-size: 13px;
+            color: #666;
+        }
+
+        /* Блок Доставка та оплата */
+        .delivery-section {
+            padding: 30px 20px;
+            background: #fff;
+            border-top: 1px solid #eee;
+        }
+        .delivery-title-main {
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            color: #222;
+            margin-bottom: 25px;
+        }
+        .delivery-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .delivery-icon-box {
+            font-size: 32px;
+            line-height: 1;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .delivery-content h3 {
+            font-size: 16px;
+            font-weight: bold;
+            color: #222;
+            margin-bottom: 4px;
+        }
+        .delivery-content p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        /* Футер */
+        .footer-links {
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+            font-size: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            text-align: center;
+        }
+        .footer-links a {
+            color: #1a0dab;
+            text-decoration: underline;
+        }
+
+        /* Комбінована плаваюча панель знизу (суворо по ширині контейнера 480px) */
+        .floating-bar {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 480px;
+            background: #ffffff;
+            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.2);
+            padding: 10px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-top: 3px solid #e74c3c;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            gap: 10px;
+        }
+        .floating-text {
+            font-size: 13px;
+            font-weight: bold;
+            color: #333333;
+            line-height: 1.25;
+            flex: 1;
+        }
+        .btn-cart-floating {
+            background: #e67e22;
+            color: #fff;
+            padding: 10px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+            cursor: pointer;
+            border: none;
+        }
+        .btn-cart-floating:hover {
+            background: #d35400;
+        }
+
+        /* Виправлене спливаюча подія */
+        #live-sale-popup {
+            position: fixed;
+            bottom: 85px;
+            left: 15px;
+            background: #ffffff;
+            color: #333;
+            padding: 12px 18px;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            border-left: 4px solid #27ae60;
+            font-size: 13px;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            max-width: 300px;
+            opacity: 0;
+            transform: translateY(20px);
+            pointer-events: none;
+            transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+        }
+        #live-sale-popup.show {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+        .popup-icon {
+            font-size: 20px;
+        }
+        .popup-text b {
+            color: #4a235a;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        /* СТИЛІ ДЛЯ МОДАЛЬНОГО ВІКНО ПОПЕРЕДЖЕННЯ */
+        .custom-alert-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 99999;
+            padding: 15px;
+        }
+        .custom-alert-box {
+            background: #fff;
+            width: 100%;
+            max-width: 340px;
+            border-radius: 12px;
+            padding: 25px 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            animation: scaleUp 0.2s ease-in-out;
+        }
+        @keyframes scaleUp {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .alert-icon-wrap { font-size: 45px; color: #e67e22; margin-bottom: 10px; line-height: 1; }
+        .alert-title { font-size: 18px; font-weight: bold; color: #d9534f; text-transform: uppercase; margin-bottom: 12px; }
+        .alert-message { font-size: 14px; color: #555; margin-bottom: 20px; line-height: 1.4; }
+        .alert-btn {
+            background: #e74c3c;
+            color: #fff;
+            border: none;
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .alert-btn:hover { background: #c0392b; }
+    </style>
+	<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '2468493400325332');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=2468493400325332&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+</head>
+<body>
+
+<div class="container">
+    
+    <!-- Upper promotional banner -->
+    <div class="top-banner">
+        
+        <!-- Кнопка кошика у верхньому правому кутку (тепер викликає JS перевірку) -->
+        <div class="banner-header">
+            <button type="button" onclick="handleCartClick()" class="btn-cart-top">
+                🛒 Кошик <span id="cart-count">0</span>
+            </button>
+        </div>
+
+        <!-- Назва писаним шрифтом -->
+        <div class="store-title">Парасольки для родини</div>
+
+        <!-- Звужена біла плашка з акцією -->
+        <div class="promo-box">
+            <div style="font-size: 14px; font-weight: 600; margin-bottom: 6px; color: #222222;">Усі парасолі від бренду «Три Слона»:</div>
+            <div style="font-size: 22px; font-weight: bold; margin-bottom: 10px; display: flex; justify-content: center; align-items: center; gap: 12px;">
+                <span style="text-decoration: line-through; color: #888888; font-size: 15px; font-weight: normal;">1 049 грн</span>
+                <span style="color: #d9534f; font-size: 22px;">849 грн</span>
+            </div>
+            <div style="font-size: 12px; background: #d9534f; padding: 7px 10px; border-radius: 6px; color: #ffffff; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px;">
+                🎁 На кожну другу та третю парасолю в чеку — знижка -20%
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Сітка товарів -->
+    <div class="catalog-grid" id="catalogSection">
+        
+        <!-- Товар 1 -->
+        <div class="product-card">
+            <img src="zont_1.png" alt="Зонт" class="product-img">
+            <div class="product-info">
+                <div class="product-title">Жіноча парасоля-автомат «Три Слона» 16 карбонових спиць (принт «Краплі»)</div>
+                <div class="product-price">
+                    <span class="old-price">1 049 грн</span>
+                    <span>849 грн</span>
+                </div>
+                <a href="umbrella-woman.html" class="btn-details">Детальніше</a>
+            </div>
+        </div>
+
+        <!-- Товар 2 -->
+        <div class="product-card">
+            <img src="z_m.png" alt="Зонт" class="product-img">
+            <div class="product-info">
+                <div class="product-title">Чоловіча парасолька-автомат «Три Слона» 16 спиць з дерев'яною ручкою</div>
+                <div class="product-price">
+                    <span class="old-price">1 049 грн</span>
+                    <span>849 грн</span>
+                </div>
+                <a href="umbrella-man.html" class="btn-details">Детальніше</a>
+            </div>
+        </div>
+
+        <!-- Товар 3 -->
+        <div class="product-card">
+            <img src="zont -z1.png" alt="Зонт" class="product-img">
+            <div class="product-info">
+                <div class="product-title">Жіноча парасоля-автомат «Три Слона» з принтом «Ейфелева вежа», 16 карбонових спиць</div>
+                <div class="product-price">
+                    <span class="old-price">1 049 грн</span>
+                    <span>849 грн</span>
+                </div>
+                <a href="umbrella-child.html" class="btn-details">Детальніше</a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Блок відгуків (Карусель) -->
+    <div class="reviews-section">
+        <div class="reviews-title">Реальні відгуки покупців</div>
+        <div class="reviews-subtitle">Рейтинг: 4.8/5 ⭐⭐⭐⭐⭐ (98% рекомендують)</div>
+        
+        <div class="carousel-container">
+            <div class="carousel-track" id="carouselTrack">
+                
+                <!-- Відгук 1 -->
+                <div class="review-card">
+                    <div class="review-header">Замовлення №211 • Світлана (Вінниця)</div>
+                    <div class="review-text">Купувала жіночу парасольку «Три Слона». Якість просто супер, механізм працює ідеально, колір дуже насичений. Дякую за швидку відправку!</div>
+                </div>
+
+                <!-- Відгук 2 -->
+                <div class="review-card">
+                    <div class="review-header">Замовлення №252 • Максим (Дніпро)</div>
+                    <div class="review-text">Брав чоловічу класичну парасольку. Міцна, вітер тримає добре, ручка зручна. Сервіс на висоті, передзвонили швидко.</div>
+                </div>
+
+                <!-- Відгук 3 -->
+                <div class="review-card">
+                    <div class="review-header">Замовлення №318 • Олена (Житомир)</div>
+                    <div class="review-text">Замовляла дитячу парасольку для синочка. Дитина в захваті, яскрава і легка. Рекомендую магазин усім!</div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="carousel-btns">
+            <button class="carousel-btn" onclick="prevSlide()">← Назад</button>
+            <button class="carousel-btn" onclick="nextSlide()">Вперед →</button>
+        </div>
+    </div>
+
+    <!-- Блок Як замовити -->
+    <div class="howto-section">
+        <div class="howto-title">Як замовити?</div>
+        
+        <div class="howto-step">
+            <div class="howto-icon">🛒</div>
+            <div class="howto-desc">
+                <h3>Крок 1:</h3>
+                <p>Оберіть бажані парасольки, перейдіть у кошик та заповніть прості дані для доставки.</p>
+            </div>
+        </div>
+
+        <div class="howto-step">
+            <div class="howto-icon">📞</div>
+            <div class="howto-desc">
+                <h3>Крок 2:</h3>
+                <p>Дочекайтеся дзвінка оператора для уточнення деталей доставки.</p>
+            </div>
+        </div>
+
+        <div class="howto-step">
+            <div class="howto-icon">📦</div>
+            <div class="howto-desc">
+                <h3>Крок 3:</h3>
+                <p>Отримайте та оплатіть товар на пошті після огляду.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Блок Доставка та оплата -->
+    <div class="delivery-section">
+        <div class="delivery-title-main">Доставка та оплата</div>
+        
+        <div class="delivery-item">
+            <div class="delivery-icon-box">🚚</div>
+            <div class="delivery-content">
+                <h3>Швидка доставка</h3>
+                <p>Новою Поштою та Укрпоштою 1–3 дні по всій Україні.</p>
+            </div>
+        </div>
+
+        <div class="delivery-item">
+            <div class="delivery-icon-box">💳</div>
+            <div class="delivery-content">
+                <h3>Оплата при отриманні</h3>
+                <p>Ми не приймаємо передоплату. Оплата лише при отриманні на пошті після огляду.</p>
+            </div>
+        </div>
+
+        <div class="footer-links">
+            <a href="politics.html">Політика конфіденційності</a>
+            <a href="ugoda.html">Угода користувача</a>
+            <a href="vozvrat.html">Умови гарантії та повернення</a>
+        </div>
+    </div>
+
+</div>
+
+<!-- Комбінована плаваюча панель знизу (тепер викликає JS перевірку) -->
+<div class="floating-bar">
+    <div class="floating-text">
+        🎁 Знижка -20% на 2-гу і 3-тю парасолю!
+    </div>
+    <button type="button" onclick="handleCartClick()" class="btn-cart-floating">
+        🛒 Кошик <span id="cart-count-floating">0</span>
+    </button>
+</div>
+
+<!-- HTML спливаючого вікна сповіщень -->
+<div id="live-sale-popup">
+    <div class="popup-icon">🛍️</div>
+    <div class="popup-text">
+        <b id="popup-title">Щойно замовили!</b>
+        <span id="popup-desc">Клієнт з м. Одеса оформив замовлення.</span>
+    </div>
+</div>
+
+<!-- КАСТОМНЕ МОДАЛЬНЕ ВІКНО «КОШИК ПУСТИЙ» -->
+<div class="custom-alert-overlay" id="emptyCartAlert">
+    <div class="custom-alert-box">
+        <div class="alert-icon-wrap">🛒</div>
+        <div class="alert-title">Кошик порожній!</div>
+        <div class="alert-message">Будь ласка, оберіть модель парасольки з каталогу перед переходом до оформлення.</div>
+        <button type="button" class="alert-btn" onclick="closeEmptyCartAlert()">Обрати парасольку</button>
+    </div>
+</div>
+
+<!-- Скрипти -->
+<script>
+    // --- Оновлення лічильника кошика з localStorage та логіка перевірки кліку ---
+    function getCartTotalCount() {
+        let cart = JSON.parse(localStorage.getItem('umbrella_cart')) || [];
+        let totalCount = 0;
+        for (let i = 0; i < cart.length; i++) {
+            totalCount += cart[i].count || 1;
+        }
+        return totalCount;
+    }
+
+    function updateHeaderCartCount() {
+        let totalCount = getCartTotalCount();
+        
+        let topBadge = document.getElementById('cart-count');
+        let floatingBadge = document.getElementById('cart-count-floating');
+        
+        if (topBadge) topBadge.innerText = totalCount;
+        if (floatingBadge) floatingBadge.innerText = totalCount;
+    }
+
+    /* ФУНКЦІЯ ОБРОБКИ КЛІКУ ПО КОШИКУ */
+    function handleCartClick() {
+        let totalCount = getCartTotalCount();
+        
+        if (totalCount === 0) {
+            // Показываем окно предупреждения
+            document.getElementById('emptyCartAlert').style.display = 'flex';
+        } else {
+            // Перенаправляем на оформление
+            window.location.href = 'checkout.html';
+        }
+    }
+
+    function closeEmptyCartAlert() {
+        document.getElementById('emptyCartAlert').style.display = 'none';
+        // Плавно скроллим к списку товаров
+        document.getElementById('catalogSection').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // --- Карусель відгуків ---
+    let currentIndex = 0;
+    function showSlide(index) {
+        const track = document.getElementById('carouselTrack');
+        if (!track) return;
+        const cards = track.children;
+        if (index >= cards.length) currentIndex = 0;
+        if (index < 0) currentIndex = cards.length - 1;
+        track.style.transform = 'translateX(' + (-currentIndex * 100) + '%)';
+    }
+    function nextSlide() {
+        currentIndex++;
+        showSlide(currentIndex);
+    }
+    function prevSlide() {
+        currentIndex--;
+        showSlide(currentIndex);
+    }
+
+    // --- Social Proof (Спливаючі покупці з гарантованим зникненням) ---
+    const cities = ["Київ", "Харків", "Одеса", "Дніпро", "Львів", "Запоріжжя", "Вінниця", "Полтава", "Черкаси", "Житомир"];
+    const actions = [
+        "оформив (-ла) замовлення на парасольку",
+        "додав (-ла) товар у кошик",
+        "щойно придбав (-ла) зі знижкою"
+    ];
+
+    function showLivePopup() {
+        const popup = document.getElementById('live-sale-popup');
+        const descElem = document.getElementById('popup-desc');
+        if (!popup || !descElem) return;
+
+        const randomCity = cities[Math.floor(Math.random() * cities.length)];
+        const randomAction = actions[Math.floor(Math.random() * actions.length)];
+
+        descElem.textContent = `Клієнт з м. ${randomCity} ${randomAction}.`;
+
+        // Показуємо плашку
+        popup.classList.add('show');
+
+        // Ховаємо рівно через 4 секунди
+        setTimeout(() => {
+            popup.classList.remove('show');
+        }, 4000);
+    }
+
+    // --- Ініціалізація при завантаженні ---
+    window.addEventListener('DOMContentLoaded', () => {
+        updateHeaderCartCount();
+
+        // Запуск попапів (перший через 10 сек, далі кожні 2.5 хвилини)
+        setTimeout(() => {
+            showLivePopup();
+            setInterval(showLivePopup, 150000); 
+        }, 10000);
+    });
+</script>
+
+</body>
+</html>
