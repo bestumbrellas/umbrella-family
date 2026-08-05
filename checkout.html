@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Оформлення замовлення</title>
+    <!-- Захист від копіювання -->
+    <script>
+        document.addEventListener('contextmenu', function(e) { e.preventDefault(); return false; });
+        document.addEventListener('selectstart', function(e) { e.preventDefault(); });
+        document.addEventListener('dragstart', function(e) { e.preventDefault(); });
+    </script>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f4f6f9; color: #333; line-height: 1.6; padding-bottom: 50px; }
+        .container { max-width: 480px; margin: 0 auto; background: #ffffff; min-height: 100vh; box-shadow: 0 0 20px rgba(0,0,0,0.1); position: relative; }
+        
+        /* Шапка */
+        .top-header { background: #4a235a; color: #fff; padding: 15px; text-align: center; position: relative; }
+        .back-link { 
+            display: inline-block; 
+            background: #ffffff !important; 
+            color: #4a235a !important; 
+            padding: 6px 14px; 
+            border-radius: 20px; 
+            text-decoration: none; 
+            font-size: 13px; 
+            font-weight: bold; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15); 
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            border: none;
+        }
+        .header-title { font-size: 18px; font-weight: bold; text-transform: uppercase; margin-left: 80px; margin-right: 20px; }
+
+        /* Контент кошика */
+        .checkout-content { padding: 20px 15px; }
+        .section-title { font-size: 16px; font-weight: bold; color: #222; margin-bottom: 15px; }
+        
+        /* Картка товару */
+        .cart-item-card { 
+            background: #fdfdfd; 
+            border: 1px solid #e5e5e5; 
+            border-radius: 8px; 
+            padding: 15px; 
+            margin-bottom: 15px; 
+            position: relative; 
+        }
+        .cart-item-title { font-size: 15px; font-weight: bold; color: #4a235a; margin-bottom: 5px; padding-right: 25px; }
+        .cart-item-details { font-size: 13px; color: #555; margin-bottom: 3px; }
+        
+        /* Блок цін у картці кошика (оновлений під кілька рядків) */
+        .cart-price-box { 
+            margin-top: 8px; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 6px; 
+            background: #f9f9f9; 
+            padding: 10px 12px; 
+            border-radius: 6px; 
+        }
+        .price-line {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+        }
+        .price-line-label { color: #555; font-size: 13px; }
+        .old-calc-price { font-size: 13px; color: #777; text-decoration: line-through; }
+        .cart-item-price { font-size: 16px; font-weight: bold; color: #333; }
+        .cart-item-price.discount { color: #e44d26; font-size: 17px; }
+        
+        /* Кнопка хрестика */
+        .remove-item-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: none;
+            border: none;
+            font-size: 18px;
+            color: #999;
+            cursor: pointer;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.2s;
+        }
+        .remove-item-btn:hover { background: #f0f0f0; color: #e74c3c; }
+
+        .cart-total-row { display: flex; justify-content: space-between; align-items: center; margin: 20px 0; padding-top: 15px; border-top: 2px dashed #eee; font-size: 18px; font-weight: bold; }
+        .cart-total-price { color: #e44d26; font-size: 22px; }
+
+        .clear-cart-link { font-size: 13px; color: #e74c3c; text-decoration: underline; background: none; border: none; cursor: pointer; padding: 0; }
+        .clear-cart-link:hover { color: #c0392b; }
+
+        /* Форма замовлення */
+        .order-form { margin-top: 30px; background: #f9f9f9; padding: 20px 15px; border-radius: 8px; border: 1px solid #eee; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-size: 13px; font-weight: 600; color: #444; margin-bottom: 5px; }
+        .form-group input, .form-group textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; outline: none; background: #fff; resize: vertical; }
+        .form-group input:focus, .form-group textarea:focus { border-color: #4a235a; }
+
+        .btn-submit-order { display: block; width: 100%; background: #27ae60; color: #fff; border: none; padding: 15px; border-radius: 6px; font-size: 16px; font-weight: bold; text-transform: uppercase; cursor: pointer; text-align: center; transition: background 0.2s; margin-top: 20px; }
+        .btn-submit-order:hover { background: #219653; }
+
+        .empty-cart-message { text-align: center; padding: 40px 20px; color: #666; font-size: 15px; }
+        .empty-cart-message a { color: #4a235a; font-weight: bold; text-decoration: underline; display: inline-block; margin-top: 10px; }
+
+        /* Стилі для кастомного спливаючого вікна (попередження) */
+        .custom-alert-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+        .custom-alert-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .custom-alert-box {
+            background: #fff;
+            padding: 25px 20px;
+            border-radius: 10px;
+            width: 85%;
+            max-width: 360px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        .custom-alert-title { font-size: 17px; font-weight: bold; color: #e74c3c; margin-bottom: 10px; }
+        .custom-alert-text { font-size: 14px; color: #444; margin-bottom: 20px; line-height: 1.4; }
+        .custom-alert-btn {
+            background: #4a235a;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+        }
+        .custom-alert-btn:hover { background: #3a1b47; }
+    </style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '2468493400325332');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=2468493400325332&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+</head>
+<body>
+
+<!-- Спливаюче вікно попередження -->
+<div id="customAlert" class="custom-alert-overlay">
+    <div class="custom-alert-box">
+        <div class="custom-alert-title">Увага!</div>
+        <div class="custom-alert-text" id="customAlertText">Будь ласка, введіть коректно всі обов'язкові дані зі зірочкою (*)</div>
+        <button type="button" class="custom-alert-btn" onclick="closeCustomAlert()">Зрозуміло</button>
+    </div>
+</div>
+
+<div class="container">
+    
+    <div class="top-header">
+        <button onclick="history.back(); return false;" class="back-link">← Назад</button>
+        <div class="header-title">Кошик замовлення</div>
+    </div>
+
+    <div class="checkout-content">
+        <div id="cart-container"></div>
+
+        <div id="order-form-container" style="display: none;">
+            <div class="order-form">
+                <div class="section-title" style="margin-bottom: 15px;">Дані для доставки</div>
+                <form id="checkoutForm" onsubmit="submitOrder(event)">
+                    <div class="form-group">
+                        <label>Прізвище та Ім'я *</label>
+                        <input type="text" id="clientName" placeholder="Введіть ваше ПІБ">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Номер телефону *</label>
+                        <input type="tel" id="clientPhone" placeholder="+38 (050) 000-00-00">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Місто / Населений пункт *</label>
+                        <input type="text" id="clientCity" placeholder="Наприклад: Київ">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Відділення Нової Пошти *</label>
+                        <input type="text" id="clientPost" placeholder="Номер відділення або поштомат">
+                    </div>
+
+                    <!-- Необов'язкове поле: Коментар -->
+                    <div class="form-group">
+                        <label>Коментар до замовлення (необов'язково)</label>
+                        <textarea id="clientComment" rows="2" placeholder="Ваші побажання чи уточнення..."></textarea>
+                    </div>
+
+                    <!-- Чекбокс «Не передзвонювати» -->
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label style="display: flex; align-items: flex-start; gap: 10px; cursor: pointer; font-weight: normal; color: #333; font-size: 14px; line-height: 1.4;">
+                            <input type="checkbox" id="noCallCheck" style="width: 18px; height: 18px; margin-top: 2px; cursor: pointer; flex-shrink: 0;">
+                            <span>Я впевнений(-а) у своєму замовленні. Meні можна не передзвонювати для підтвердження.</span>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn-submit-order">Підтвердити замовлення</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function showCustomAlert(message) {
+        if (message) {
+            document.getElementById('customAlertText').innerText = message;
+        }
+        document.getElementById('customAlert').classList.add('active');
+    }
+
+    function closeCustomAlert() {
+        document.getElementById('customAlert').classList.remove('active');
+    }
+
+    function loadCheckoutCart() {
+        let cart = JSON.parse(localStorage.getItem('umbrella_cart')) || [];
+        const container = document.getElementById('cart-container');
+        const formContainer = document.getElementById('order-form-container');
+
+        if (cart.length === 0) {
+            container.innerHTML = `
+                <div class="empty-cart-message">
+                    <p>Ваш кошик порожній.</p>
+                    <a href="index.html">Перейти до каталогу</a>
+                </div>
+            `;
+            formContainer.style.display = 'none';
+            return;
+        }
+
+        formContainer.style.display = 'block';
+        let html = '<div class="section-title">Ваше замовлення:</div>';
+
+        let totalCount = 0;
+        for (let i = 0; i < cart.length; i++) {
+            totalCount += cart[i].count;
+        }
+
+        let totalPrice = 0;
+        let processedCount = 0;
+
+        let calculatedItems = [];
+        for (let i = 0; i < cart.length; i++) {
+            let item = cart[i];
+            let itemFinalPrice = 0;
+
+            // Розрахунок вартості для поточного товару на основі черговості додавання в кошик
+            for (let j = 0; j < item.count; j++) {
+                processedCount++;
+                if (processedCount === 1) {
+                    itemFinalPrice += 849;
+                } else {
+                    itemFinalPrice += 849 * 0.8;
+                }
+            }
+            
+            itemFinalPrice = Math.round(itemFinalPrice);
+            totalPrice += itemFinalPrice;
+
+            calculatedItems.push({
+                id: item.id,
+                title: item.title,
+                colors: item.colors,
+                count: item.count,
+                calculatedPrice: itemFinalPrice
+            });
+        }
+
+        // Обнуляємо лічильник для коректної побудови інтерфейсу виведення цін
+        let renderProcessedCount = 0;
+
+        for (let i = 0; i < calculatedItems.length; i++) {
+            let item = calculatedItems[i];
+            let colorsText = Array.isArray(item.colors) ? item.colors.join(', ') : item.colors;
+
+            let priceDisplayHtml = '<div class="cart-price-box">';
+            
+            // Рахуємо скільки одиниць цього товару йдуть як "Перша парасоля", а скільки як "Наступні зі знижкою"
+            let firstUmbrellasCount = 0;
+            let promoUmbrellasCount = 0;
+
+            for (let j = 0; j < item.count; j++) {
+                renderProcessedCount++;
+                if (renderProcessedCount === 1) {
+                    firstUmbrellasCount++;
+                } else {
+                    promoUmbrellasCount++;
+                }
+            }
+
+            // Рядок 1: Якщо є хоча б одна парасоля за повну вартість акції
+            if (firstUmbrellasCount > 0) {
+                priceDisplayHtml += `
+                    <div class="price-line">
+                        <span class="price-line-label">1-ша парасоля:</span>
+                        <div>
+                            <span class="old-calc-price">1049 грн</span>
+                            <span class="cart-item-price"> 849 грн</span>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Рядок 2: Якщо в картці є наступні парасолі, на які діє -20%
+            if (promoUmbrellasCount > 0) {
+                let promoOldSum = promoUmbrellasCount * 849;
+                let promoNewSum = Math.round(promoUmbrellasCount * 849 * 0.8);
+                
+                priceDisplayHtml += `
+                    <div class="price-line">
+                        <span class="price-line-label">Ще ${promoUmbrellasCount} шт. (-20% на наступні):</span>
+                        <div>
+                            <span class="old-calc-price">${promoOldSum} грн</span>
+                            <span class="cart-item-price discount"> ${promoNewSum} грн</span>
+                        </div>
+                    </div>
+                `;
+            }
+
+            priceDisplayHtml += '</div>';
+
+            html += `
+                <div class="cart-item-card">
+                    <button type="button" class="remove-item-btn" onclick="removeItem('${item.id}')" title="Видалити товар">✕</button>
+                    <div class="cart-item-title">${item.title}</div>
+                    <div class="cart-item-details">Вибрані кольори/дизайни: <b>${colorsText}</b></div>
+                    <div class="cart-item-details">Кількість: ${item.count} шт.</div>
+                    ${priceDisplayHtml}
+                </div>
+            `;
+        }
+
+        html += `
+            <div class="cart-total-row">
+                <span>Разом до сплати:</span>
+                <span class="cart-total-price">${totalPrice} грн</span>
+            </div>
+            <button type="button" class="clear-cart-link" onclick="clearCart()">Очистити кошик</button>
+        `;
+
+        container.innerHTML = html;
+    }
+
+    function removeItem(itemId) {
+        let cart = JSON.parse(localStorage.getItem('umbrella_cart')) || [];
+        let newCart = [];
+        for (let i = 0; i < cart.length; i++) {
+            if (cart[i].id !== itemId) {
+                newCart.push(cart[i]);
+            }
+        }
+        localStorage.setItem('umbrella_cart', JSON.stringify(newCart));
+        loadCheckoutCart();
+    }
+
+    function clearCart() {
+        if (confirm('Ви дійсно хочете повністю очистити кошик?')) {
+            localStorage.removeItem('umbrella_cart');
+            loadCheckoutCart();
+        }
+    }
+
+    function submitOrder(event) {
+        event.preventDefault();
+        
+        let cart = JSON.parse(localStorage.getItem('umbrella_cart')) || [];
+        if (cart.length === 0) {
+            showCustomAlert('Кошик порожній!');
+            return;
+        }
+
+        let name = document.getElementById('clientName').value.trim();
+        let phone = document.getElementById('clientPhone').value.trim();
+        let city = document.getElementById('clientCity').value.trim();
+        let post = document.getElementById('clientPost').value.trim();
+
+        if (!name || !phone || !city || !post) {
+            showCustomAlert("Будь ласка, введіть коректно всі обов'язкові дані зі зірочкою (*)");
+            return;
+        }
+
+        let comment = document.getElementById('clientComment').value.trim();
+        if (comment) {
+            localStorage.setItem('umbrella_comment', comment);
+        }
+
+        let isNoCall = document.getElementById('noCallCheck').checked;
+
+        // ================= ФОРМУВАННЯ ПОВІДОМЛЕННЯ ДЛЯ ТЕЛЕГРАМУ =================
+        let message = `🛍️ **НОВЕ ЗАМОВЛЕННЯ**\n\n`;
+        message += `👤 **Клієнт:** ${name}\n`;
+        message += `📞 **Телефон:** ${phone}\n`;
+        message += `📍 **Місто:** ${city}\n`;
+        message += `📦 **Відділення:** ${post}\n`;
+        message += `💬 **Коментар:** ${comment ? comment : 'немає'}\n`;
+        message += `☎️ **Передзвонити?:** ${isNoCall ? '❌ НІ (впевнений у замовленні)' : '✅ ТАК (потрібне підтвердження)'}\n\n`;
+        message += `🛒 **Товари:**\n`;
+
+        let totalPrice = 0;
+        let processedCount = 0;
+
+        cart.forEach(item => {
+            let itemFinalPrice = 0;
+            for (let j = 0; j < item.count; j++) {
+                processedCount++;
+                if (processedCount === 1) {
+                    itemFinalPrice += 849;
+                } else {
+                    itemFinalPrice += 849 * 0.8;
+                }
+            }
+            itemFinalPrice = Math.round(itemFinalPrice);
+            totalPrice += itemFinalPrice;
+
+            let colorsText = Array.isArray(item.colors) ? item.colors.join(', ') : item.colors;
+            message += `▪️ ${item.title} (${colorsText}) — ${item.count} шт. за ${itemFinalPrice} грн\n`;
+        });
+
+        message += `\n💰 **РАЗОМ ДО СПЛАТИ:** ${totalPrice} грн`;
+
+        // ================= НАЛАШТУВАННЯ ТЕЛЕГРАМ БОТА =================
+        const TELEGRAM_TOKEN = '8932532410:AAHg7YF8_VZ0HHtjg6DQIowJAmN_VLc2thM'; 
+        const TELEGRAM_CHAT_ID = '607128150'; 
+
+        // Відправка даних в Телеграм через API
+        fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                chat_id: TELEGRAM_CHAT_ID,
+                text: message,
+                parse_mode: 'Markdown'
+            })
+        })
+        .then(response => {
+            localStorage.removeItem('umbrella_cart');
+            if (isNoCall) {
+                window.location.href = 'thank-you-fast.html';
+            } else {
+                window.location.href = 'thank-you-call.html';
+            }
+        })
+        .catch(error => {
+            console.error('Помилка відправки в Телеграм:', error);
+            showCustomAlert('Сталася помилка при оформленні. Спробуйте ще раз або зв’яжіться з нами.');
+        });
+    }
+
+    window.onload = loadCheckoutCart;
+</script>
+
+</body>
+</html>
