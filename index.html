@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Парасольки «Три Слона» — жіночі та чоловіча парасолі-автомати з карбоновими спицями</title>
+    <meta name="description" content="Складні парасолі-автомати «Три Слона» з карбоновими спицями та системою «Антивітер». При купівлі 2 та більше парасоль — знижка 10%. Оплата при отриманні.">
+    <!-- Захист від копіювання -->
+    <script>
+        document.addEventListener('contextmenu', function(e) { e.preventDefault(); return false; });
+        document.addEventListener('selectstart', function(e) { e.preventDefault(); });
+        document.addEventListener('dragstart', function(e) { e.preventDefault(); });
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=Unbounded:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Палітра: «дощова вода» + жовтий плащ */
+            --ink: #0d3a46;
+            --ink-deep: #082830;
+            --ink-soft: #1c5666;
+            --mist: #e4edf0;
+            --surface: #f2f7f8;
+            --line: #d3e1e5;
+            --slicker: #ffc21a;
+            --slicker-dark: #f2a900;
+            --text: #12242a;
+            --muted: #5b747d;
+            --ok: #1d9a66;
+            --ok-bg: #e5f6ee;
+            --danger: #b83a2a;
+            --r-lg: 16px;
+            --r-md: 12px;
+            --r-sm: 9px;
+            --font-body: 'Onest', 'Segoe UI', system-ui, -apple-system, Roboto, Arial, sans-serif;
+            --font-display: 'Unbounded', 'Onest', 'Segoe UI', system-ui, sans-serif;
+            --shadow-card: 0 2px 10px rgba(8, 40, 48, 0.07);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--font-body); background: var(--mist); color: var(--text); line-height: 1.55; padding-bottom: 96px; -webkit-text-size-adjust: 100%; }
+        button, input { font: inherit; color: inherit; }
+        img { display: block; max-width: 100%; }
+        :focus-visible { outline: 3px solid var(--slicker-dark); outline-offset: 2px; }
+        .container { max-width: 480px; margin: 0 auto; background: #fff; min-height: 100vh; box-shadow: 0 0 40px rgba(8, 40, 48, 0.16); position: relative; }
+
+        /* ===== HERO ===== */
+        .hero { position: relative; overflow: hidden; background: var(--ink); color: #fff; padding: 26px 18px 22px; }
+        .rain { position: absolute; inset: 0; pointer-events: none; background-repeat: repeat; }
+        .rain-a { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cg stroke='white' stroke-width='1.3' stroke-linecap='round' fill='none'%3E%3Cpath d='M14 10l-4 14M52 40l-4 14M90 20l-4 14M30 72l-4 14M70 88l-4 14M104 64l-4 14M8 100l-4 14M60 4l-4 14'/%3E%3C/g%3E%3C/svg%3E"); background-size: 120px 120px; opacity: 0.32; }
+        .rain-b { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90'%3E%3Cg stroke='white' stroke-width='1' stroke-linecap='round' fill='none'%3E%3Cpath d='M20 8l-4 14M64 30l-4 14M40 52l-4 14M78 68l-4 14M8 46l-4 14'/%3E%3C/g%3E%3C/svg%3E"); background-size: 90px 90px; opacity: 0.2; }
+        @media (prefers-reduced-motion: no-preference) {
+            .rain-a { animation: rainfall-a 1.5s linear infinite; }
+            .rain-b { animation: rainfall-b 2.3s linear infinite; }
+            .live-viewers .dot { animation: pulse-dot 1.8s infinite; }
+        }
+        @keyframes rainfall-a { to { background-position: -34px 120px; } }
+        @keyframes rainfall-b { to { background-position: -26px 90px; } }
+        .hero-top { position: relative; display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
+        .brand-title { font-family: var(--font-display); font-weight: 700; font-size: 25px; line-height: 1.2; letter-spacing: -0.2px; }
+        .brand-subtitle { font-size: 14px; color: #bcd6dc; margin-top: 10px; line-height: 1.45; max-width: 290px; }
+        .hero-mark { width: 86px; height: 86px; flex-shrink: 0; margin-top: -2px; }
+
+        .live-viewers { position: relative; display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #fff; font-size: 12px; font-weight: 500; padding: 6px 13px; border-radius: 30px; margin-bottom: 18px; }
+        .live-viewers .dot { width: 8px; height: 8px; border-radius: 50%; background: #3be07f; flex-shrink: 0; }
+        .live-viewers .lv-count { font-weight: 700; display: inline-block; min-width: 10px; transition: opacity .25s ease; }
+        @keyframes pulse-dot { 0% { box-shadow: 0 0 0 0 rgba(59,224,127,0.55); } 70% { box-shadow: 0 0 0 7px rgba(59,224,127,0); } 100% { box-shadow: 0 0 0 0 rgba(59,224,127,0); } }
+
+        /* Оффер у формі талона */
+        .offer { position: relative; display: grid; grid-template-columns: 108px 1fr; background: var(--slicker); color: var(--ink-deep); border-radius: 14px; }
+        .offer::before, .offer::after { content: ''; position: absolute; left: 99px; width: 18px; height: 18px; border-radius: 50%; background: var(--ink); }
+        .offer::before { top: -9px; }
+        .offer::after { bottom: -9px; }
+        .offer-value { font-family: var(--font-display); font-weight: 700; font-size: 27px; display: flex; align-items: center; justify-content: center; border-right: 2px dashed rgba(8,40,48,0.35); padding: 16px 6px; }
+        .offer-text { padding: 13px 16px; display: flex; flex-direction: column; gap: 4px; justify-content: center; }
+        .offer-text strong { font-size: 14.5px; font-weight: 700; line-height: 1.3; }
+        .offer-text span { font-size: 12.5px; line-height: 1.4; color: rgba(8,40,48,0.82); }
+
+        /* ===== КАТАЛОГ (швидка навігація) ===== */
+        .catalog { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; padding: 14px 12px; background: #fff; border-bottom: 1px solid var(--line); }
+        .cat-card { display: flex; flex-direction: column; align-items: stretch; gap: 6px; text-decoration: none; color: var(--text); border: 1px solid var(--line); border-radius: var(--r-md); padding: 8px 8px 10px; background: #fff; transition: border-color .2s, box-shadow .2s; }
+        .cat-card:hover { border-color: var(--ink); box-shadow: var(--shadow-card); }
+        .cat-card img { width: 100%; height: 118px; object-fit: contain; background: var(--surface); border-radius: var(--r-sm); padding: 5px; }
+        .cat-name { font-size: 12px; font-weight: 600; line-height: 1.3; color: var(--text); }
+        .cat-price { font-family: var(--font-display); font-weight: 600; font-size: 13px; color: var(--ink); }
+
+        /* ===== БЛОК ТОВАРУ ===== */
+        .product-block { border-top: 10px solid var(--mist); scroll-margin-top: 0; }
+        .product-header { padding: 22px 18px 20px; background: var(--surface); border-top: 4px solid var(--slicker); border-bottom: 1px solid var(--line); }
+        .product-kicker { display: inline-block; background: var(--ink); color: #fff; font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 20px; margin-bottom: 10px; }
+        .product-title { font-size: 17px; font-weight: 700; line-height: 1.35; margin-bottom: 12px; }
+        .product-price-line { display: flex; align-items: baseline; gap: 8px; }
+        .price-now { font-family: var(--font-display); font-weight: 700; font-size: 26px; color: var(--ink); }
+        .price-unit { font-size: 13px; color: var(--muted); }
+
+        .order-section { padding: 16px 12px 18px; background: #fff; }
+        .order-label { font-size: 15px; font-weight: 700; margin-bottom: 2px; padding: 0 4px; }
+        .order-hint { font-size: 12.5px; color: var(--muted); margin-bottom: 12px; padding: 0 4px; line-height: 1.4; }
+
+        .colors-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; margin-bottom: 10px; }
+        .color-card, .solo-card { position: relative; border: 2px solid var(--line); border-radius: var(--r-md); padding: 7px; text-align: center; cursor: pointer; background: #fff; transition: border-color .2s, box-shadow .2s, background-color .2s; }
+        .color-card:hover, .solo-card:hover { border-color: #9cb8c0; }
+        .color-card img { width: 100%; height: 104px; object-fit: contain; border-radius: 7px; margin-bottom: 6px; background: var(--surface); }
+        .color-name { display: block; font-size: 11.5px; font-weight: 600; color: var(--ink-soft); line-height: 1.3; }
+        .color-card[aria-pressed="true"], .solo-card[aria-pressed="true"] { border-color: var(--ink); background: var(--surface); box-shadow: 0 0 0 3px var(--slicker); }
+        .color-card[aria-pressed="true"]::after, .solo-card[aria-pressed="true"]::after { content: ''; position: absolute; top: 6px; right: 6px; width: 22px; height: 22px; border-radius: 50%; background: var(--slicker) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M3 7.5l3 3 5-6.5' fill='none' stroke='%230d3a46' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 13px no-repeat; }
+
+        .solo-card { display: block; width: 100%; max-width: 236px; margin: 0 auto 14px; padding: 10px; }
+        .solo-card img { width: 100%; height: 178px; object-fit: contain; border-radius: 8px; margin-bottom: 8px; background: var(--surface); }
+        .solo-name { display: block; font-size: 14px; font-weight: 700; }
+        .solo-state { display: block; font-size: 12px; color: var(--muted); margin-top: 1px; }
+        .solo-card[aria-pressed="true"] .solo-state { color: var(--ok); font-weight: 600; }
+
+        .quantity-wrapper { display: flex; align-items: center; justify-content: space-between; background: var(--surface); padding: 10px 14px; border-radius: var(--r-sm); border: 1px solid var(--line); margin-bottom: 12px; }
+        .quantity-label { font-size: 14px; font-weight: 600; }
+        .quantity-select { display: flex; align-items: center; gap: 6px; }
+        .quantity-btn { background: var(--ink); color: #fff; border: none; width: 36px; height: 36px; border-radius: 9px; font-size: 18px; font-weight: 700; cursor: pointer; transition: background .2s; }
+        .quantity-btn:hover { background: var(--ink-soft); }
+        .quantity-input { width: 42px; height: 36px; text-align: center; font-size: 15px; font-weight: 700; border: 1px solid var(--line); border-radius: 9px; background: #fff; }
+
+        .selected-line { font-size: 13px; color: var(--muted); min-height: 20px; padding: 0 4px; }
+
+        /* ===== ГАЛЕРЕЯ ===== */
+        .media-section { padding: 18px 12px; background: #fff; border-top: 1px solid var(--line); }
+        .media-section-title { font-family: var(--font-display); font-weight: 600; font-size: 14px; color: var(--ink); margin-bottom: 12px; padding: 0 4px; }
+        .gallery-container { position: relative; width: 100%; border: 1px solid var(--line); border-radius: var(--r-md); overflow: hidden; background: #fff; margin-bottom: 14px; }
+        .gallery-slide { display: none; width: 100%; height: 290px; }
+        .gallery-slide.active { display: block; }
+        .gallery-slide img { width: 100%; height: 100%; object-fit: contain; }
+        .gallery-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(13,58,70,.78); color: #fff; border: none; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 10; }
+        .gallery-arrow:hover { background: var(--ink); }
+        .gallery-arrow svg { width: 16px; height: 16px; }
+        .gallery-prev { left: 8px; }
+        .gallery-next { right: 8px; }
+        .gallery-count { position: absolute; bottom: 8px; right: 8px; background: rgba(13,58,70,.78); color: #fff; font-size: 11.5px; font-weight: 600; padding: 2px 9px; border-radius: 12px; z-index: 10; }
+        .gallery-container.single .gallery-arrow, .gallery-container.single .gallery-count { display: none; }
+
+        .video-container { width: 100%; max-width: 440px; height: 340px; margin: 0 auto; border-radius: var(--r-md); overflow: hidden; background: #000; }
+        .video-container video { width: 100%; height: 100%; object-fit: contain; display: block; background: #000; }
+
+        /* ===== ХАРАКТЕРИСТИКИ ===== */
+        .specs-section { padding: 20px 12px 24px; background: var(--surface); border-top: 1px solid var(--line); }
+        .specs-title { font-family: var(--font-display); font-weight: 600; font-size: 14px; color: var(--ink); margin-bottom: 12px; padding: 0 4px; }
+        .specs-table { background: #fff; border-radius: var(--r-lg); border: 1px solid var(--line); overflow: hidden; }
+        .specs-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 14px; padding: 12px 16px; border-bottom: 1px solid #e6eef0; }
+        .specs-row:last-child { border-bottom: none; }
+        .specs-row:nth-child(even) { background: #f8fbfb; }
+        .specs-label { font-size: 13px; color: var(--muted); flex: 1; line-height: 1.4; }
+        .specs-value { font-size: 13.5px; font-weight: 600; text-align: right; flex: 1.1; line-height: 1.4; }
+
+        /* ===== ФОРМА ЗАМОВЛЕННЯ ===== */
+        .order-form-section { padding: 28px 16px 32px; background: var(--mist); border-top: 4px solid var(--slicker); scroll-margin-top: 0; }
+        .order-form-title { font-family: var(--font-display); font-weight: 700; font-size: 20px; color: var(--ink); margin-bottom: 8px; }
+        .order-form-desc { font-size: 13.5px; color: var(--muted); margin-bottom: 16px; line-height: 1.45; }
+        .order-summary { background: #fff; border: 1px solid var(--line); border-radius: var(--r-md); padding: 14px 16px; margin-bottom: 16px; box-shadow: var(--shadow-card); }
+        .empty-summary { font-size: 13.5px; color: var(--muted); text-align: center; padding: 6px 0; }
+        .order-summary-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+        .order-summary-heading { font-size: 14px; font-weight: 700; color: var(--ink); }
+        .clear-all-btn { background: none; border: none; color: var(--danger); font-size: 12.5px; font-weight: 600; cursor: pointer; text-decoration: underline; padding: 0; }
+        .summary-item { display: flex; justify-content: space-between; align-items: center; font-size: 13.5px; padding: 8px 0; border-bottom: 1px solid #e9f0f2; gap: 10px; }
+        .summary-item:last-of-type { border-bottom: none; }
+        .summary-item-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+        .summary-item-price { font-weight: 600; color: var(--ink); white-space: nowrap; }
+        .summary-item-remove { background: var(--surface); border: 1px solid var(--line); color: var(--muted); width: 26px; height: 26px; border-radius: 50%; font-size: 12px; line-height: 1; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background .15s, color .15s; }
+        .summary-item-remove:hover { background: var(--danger); color: #fff; border-color: var(--danger); }
+        .summary-hint { margin-top: 8px; background: #fff7dc; border: 1px dashed var(--slicker-dark); color: #6b4d00; font-size: 12.5px; font-weight: 600; text-align: center; padding: 8px 10px; border-radius: var(--r-sm); line-height: 1.4; }
+        .order-summary-old-row { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; font-size: 13px; color: var(--muted); }
+        .order-summary-old-row span:last-child { text-decoration: line-through; }
+        .order-summary-discount-banner { margin-top: 8px; background: var(--ok-bg); border: 1px dashed var(--ok); color: #13724b; font-size: 12.5px; font-weight: 600; text-align: center; padding: 8px 10px; border-radius: var(--r-sm); line-height: 1.4; }
+        .order-summary-total-row { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; padding-top: 10px; border-top: 2px solid var(--ink); font-size: 15px; font-weight: 700; color: var(--ink); }
+        .order-summary-total-row > span:last-child { font-family: var(--font-display); font-size: 19px; }
+        .order-form { display: flex; flex-direction: column; gap: 12px; }
+        .order-input { width: 100%; padding: 14px; border: 1.5px solid var(--line); border-radius: var(--r-sm); font-size: 15px; background: #fff; outline: none; transition: border-color .2s, box-shadow .2s; }
+        .order-input:focus { border-color: var(--ink); box-shadow: 0 0 0 3px rgba(255,194,26,0.45); }
+        .order-submit-btn { background: var(--slicker); color: var(--ink-deep); border: none; padding: 16px; border-radius: var(--r-sm); font-family: var(--font-display); font-size: 15px; font-weight: 600; cursor: pointer; box-shadow: 0 4px 0 var(--slicker-dark); transition: transform .12s, box-shadow .12s; }
+        .order-submit-btn:hover { transform: translateY(1px); box-shadow: 0 3px 0 var(--slicker-dark); }
+        .order-submit-btn:active { transform: translateY(4px); box-shadow: 0 0 0 var(--slicker-dark); }
+        .order-submit-btn:disabled { opacity: .7; cursor: wait; }
+        .order-error { background: #fdeceb; border: 1px solid #efb3ac; color: var(--danger); font-size: 13px; font-weight: 600; padding: 10px 12px; border-radius: var(--r-sm); line-height: 1.4; }
+
+        /* ===== ДОСТАВКА / ФУТЕР ===== */
+        .delivery-info-section { padding: 24px 16px; background: #fff; }
+        .delivery-info-title { font-family: var(--font-display); font-weight: 600; font-size: 16px; color: var(--ink); margin-bottom: 16px; }
+        .delivery-row { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 16px; }
+        .delivery-row-icon { width: 44px; height: 44px; border-radius: 12px; background: var(--surface); color: var(--ink); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .delivery-row-icon svg { width: 24px; height: 24px; }
+        .delivery-row-text h4 { font-size: 14.5px; font-weight: 700; margin-bottom: 2px; }
+        .delivery-row-text p { font-size: 13px; color: var(--muted); }
+        .footer-links { margin-top: 20px; padding-top: 14px; border-top: 1px solid var(--line); font-size: 12.5px; display: flex; flex-direction: column; gap: 8px; }
+        .footer-links a { color: var(--ink-soft); text-decoration: underline; }
+
+        /* ===== НИЖНЯ ПАНЕЛЬ ===== */
+        .floating-bottom-bar { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 480px; background: rgba(255,255,255,0.97); backdrop-filter: blur(6px); border-top: 1px solid var(--line); padding: 10px 14px; display: flex; align-items: center; justify-content: space-between; gap: 10px; box-shadow: 0 -6px 18px rgba(8,40,48,0.12); z-index: 999; }
+        .floating-promo { font-size: 13px; font-weight: 600; color: var(--ink); line-height: 1.3; }
+        .floating-promo b { font-family: var(--font-display); font-weight: 600; font-size: 14px; }
+        .floating-note { display: block; font-size: 11.5px; font-weight: 500; color: var(--muted); margin-top: 1px; }
+        .floating-order-btn { background: var(--slicker); color: var(--ink-deep); border: none; padding: 12px 22px; border-radius: var(--r-sm); font-family: var(--font-display); font-weight: 600; font-size: 13px; cursor: pointer; white-space: nowrap; box-shadow: 0 3px 0 var(--slicker-dark); transition: transform .12s, box-shadow .12s; }
+        .floating-order-btn:active { transform: translateY(3px); box-shadow: 0 0 0 var(--slicker-dark); }
+
+        /* ===== МОДАЛЬНІ ВІКНА ===== */
+        .custom-alert-overlay { position: fixed; inset: 0; background: rgba(8,40,48,0.6); display: none; align-items: center; justify-content: center; z-index: 99999; padding: 15px; }
+        .custom-alert-box { background: #fff; width: 100%; max-width: 340px; border-radius: var(--r-lg); padding: 26px 22px 22px; text-align: center; box-shadow: 0 20px 50px rgba(8,40,48,0.4); }
+        .modal-icon { width: 56px; height: 56px; margin: 0 auto 12px; }
+        .alert-title, .success-title { font-family: var(--font-display); font-size: 17px; font-weight: 600; margin-bottom: 10px; }
+        .alert-title { color: var(--ink); }
+        .success-title { color: var(--ok); }
+        .alert-message, .success-message { font-size: 14px; color: var(--muted); margin-bottom: 18px; line-height: 1.5; }
+        .alert-btn, .success-btn { border: none; width: 100%; padding: 13px; border-radius: var(--r-sm); font-family: var(--font-display); font-size: 13.5px; font-weight: 600; cursor: pointer; }
+        .alert-btn { background: var(--slicker); color: var(--ink-deep); }
+        .success-btn { background: var(--ink); color: #fff; }
+    </style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1015453331530328');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1015453331530328&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+</head>
+<body>
+
+<div class="container">
+
+    <!-- ===== HERO ===== -->
+    <header class="hero">
+        <div class="rain rain-a"></div>
+        <div class="rain rain-b"></div>
+
+        <div class="hero-top">
+            <div>
+                <h1 class="brand-title">Парасольки<br>Для родини</h1>
+                <p class="brand-subtitle">Складні парасолі-автомати з карбоновими спицями та системою «Антивітер»</p>
+            </div>
+            <svg class="hero-mark" viewBox="0 0 120 120" aria-hidden="true">
+                <path d="M10 64A50 50 0 0 1 110 64Q97 54 85 64Q73 54 60 64Q47 54 35 64Q23 54 10 64Z" fill="#ffc21a"/>
+                <path d="M60 14V64M60 14Q74 34 85 64M60 14Q46 34 35 64" fill="none" stroke="#0d3a46" stroke-opacity=".28" stroke-width="1.6"/>
+                <path d="M60 64V100a8 8 0 0 1-16 0" fill="none" stroke="#ffc21a" stroke-width="5" stroke-linecap="round"/>
+                <path d="M60 14V8" stroke="#ffc21a" stroke-width="4" stroke-linecap="round"/>
+            </svg>
+        </div>
+
+        <div class="live-viewers" id="liveViewers">
+            <span class="dot"></span>
+            <span>Зараз переглядають сайт: <span class="lv-count" id="lvCount">5</span> людей</span>
+        </div>
+
+        <div class="offer">
+            <div class="offer-value">−10%</div>
+            <div class="offer-text">
+                <strong>При купівлі 2 та більше парасоль — знижка 10%!</strong>
+                <span>Жіночі парасолі можна обрати лише різних кольорів.</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== КАТАЛОГ ===== -->
+    <nav class="catalog" aria-label="Каталог парасоль">
+        <a href="#prod-colors" class="cat-card">
+            <img src="new0.png" alt="Жіноча парасоля, 6 кольорів">
+            <span class="cat-name">Жіноча,<br>6 кольорів</span>
+            <span class="cat-price">879 грн</span>
+        </a>
+        <a href="#prod-man" class="cat-card">
+            <img src="men.png" alt="Чоловіча парасоля">
+            <span class="cat-name">Чоловіча<br>автомат</span>
+            <span class="cat-price">799 грн</span>
+        </a>
+    </nav>
+
+    <!-- ============================================================ -->
+    <!-- ТОВАР 1: ЖІНОЧА, 6 КОЛЬОРІВ — 879 грн -->
+    <!-- ============================================================ -->
+    <section class="product-block" id="prod-colors">
+        <div class="product-header">
+            <span class="product-kicker">Жіноча модель</span>
+            <h2 class="product-title">Жіноча парасоля-автомат, 16 карбонових спиць, антивітер, у чохлі</h2>
+            <div class="product-price-line">
+                <span class="price-now">879 грн</span>
+                <span class="price-unit">за 1 парасолю</span>
+            </div>
+        </div>
+
+        <div class="order-section">
+            <h3 class="order-label">Оберіть колір</h3>
+            <p class="order-hint">Можна обрати кілька — але лише різних кольорів.</p>
+            <div class="colors-grid" data-product="colors">
+                <button type="button" class="color-card" data-color="Чорний графіт" aria-pressed="false">
+                    <img src="new4.png" alt="Чорний графіт">
+                    <span class="color-name">Чорний графіт</span>
+                </button>
+                <button type="button" class="color-card" data-color="Лісовий смарагд" aria-pressed="false">
+                    <img src="new5.png" alt="Лісовий смарагд">
+                    <span class="color-name">Лісовий смарагд</span>
+                </button>
+                <button type="button" class="color-card" data-color="Королівський фіолетовий" aria-pressed="false">
+                    <img src="new3.png" alt="Королівський фіолетовий">
+                    <span class="color-name">Королівський фіолетовий</span>
+                </button>
+                <button type="button" class="color-card" data-color="Рубіновий" aria-pressed="false">
+                    <img src="new2.png" alt="Рубіновий">
+                    <span class="color-name">Рубіновий</span>
+                </button>
+                <button type="button" class="color-card" data-color="Глибокий синій" aria-pressed="false">
+                    <img src="new1.png" alt="Глибокий синій">
+                    <span class="color-name">Глибокий синій</span>
+                </button>
+                <button type="button" class="color-card" data-color="Морська хвиля" aria-pressed="false">
+                    <img src="new6.png" alt="Морська хвиля">
+                    <span class="color-name">Морська хвиля</span>
+                </button>
+            </div>
+            <div class="selected-line" id="selected-colors">Кольори ще не обрано</div>
+        </div>
+
+        <div class="media-section">
+            <div class="media-section-title">Живі фото та огляд</div>
+            <div class="gallery-container" id="gallery-colors">
+                <button type="button" class="gallery-arrow gallery-prev" aria-label="Попереднє фото" onclick="changeSlide('colors', -1)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="10,3 5,8 10,13"/></svg></button>
+                <div class="gallery-slide active"><img src="new0.png" alt="Фото 1"></div>
+                <div class="gallery-slide"><img src="new13.png" alt="Фото 2"></div>
+                <div class="gallery-slide"><img src="new12.png" alt="Фото 3"></div>
+                <div class="gallery-slide"><img src="new9.png" alt="Фото 4"></div>
+                <div class="gallery-slide"><img src="new10.png" alt="Фото 5"></div>
+                <div class="gallery-slide"><img src="new11.png" alt="Фото 6"></div>
+                <div class="gallery-slide"><img src="new14.png" alt="Фото 7"></div>
+                <div class="gallery-slide"><img src="new15.png" alt="Фото 8"></div>
+                <div class="gallery-slide"><img src="new8.png" alt="Фото 9"></div>
+                <button type="button" class="gallery-arrow gallery-next" aria-label="Наступне фото" onclick="changeSlide('colors', 1)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6,3 11,8 6,13"/></svg></button>
+                <span class="gallery-count"></span>
+            </div>
+            <div class="video-container">
+                <video controls preload="auto" autoplay muted loop playsinline>
+                    <source src="new_video.mp4" type="video/mp4">
+                    Ваш браузер не підтримує відео.
+                </video>
+            </div>
+        </div>
+
+        <div class="specs-section">
+            <div class="specs-title">Характеристики</div>
+            <div class="specs-table">
+                <div class="specs-row"><span class="specs-label">Тип</span><span class="specs-value">Повний автомат, 3 складання</span></div>
+                <div class="specs-row"><span class="specs-label">Кількість спиць</span><span class="specs-value">16, карбон</span></div>
+                <div class="specs-row"><span class="specs-label">Захист від вітру</span><span class="specs-value">Антивітер</span></div>
+                <div class="specs-row"><span class="specs-label">Матеріал</span><span class="specs-value">Епонж з тефлоновим просоченням</span></div>
+                <div class="specs-row"><span class="specs-label">Діаметр купола</span><span class="specs-value">103 см</span></div>
+                <div class="specs-row"><span class="specs-label">Довжина у складеному вигляді</span><span class="specs-value">36 см</span></div>
+                <div class="specs-row"><span class="specs-label">Комплектація</span><span class="specs-value">Парасолька в чохлі</span></div>
+				<div class="specs-row"><span class="specs-label">Торгова марка</span><span class="specs-value">Три Слона</span></div>
+				<div class="specs-row"><span class="specs-label">Країна-виробник</span><span class="specs-value">Китай</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- ТОВАР 2: ЧОЛОВІЧА — 799 грн -->
+    <!-- ============================================================ -->
+    <section class="product-block" id="prod-man">
+        <div class="product-header">
+            <span class="product-kicker">Чоловіча модель</span>
+            <h2 class="product-title">Чоловіча складна парасоля-автомат, 14 карбонових спиць, антивітер</h2>
+            <div class="product-price-line">
+                <span class="price-now">799 грн</span>
+                <span class="price-unit">за 1 парасолю</span>
+            </div>
+        </div>
+
+        <div class="order-section">
+            <h3 class="order-label">Колір: Чорний</h3>
+            <p class="order-hint">Чоловічу парасолю можна замовити в будь-якій кількості.</p>
+            <button type="button" class="solo-card" id="manColorCard" aria-pressed="false" onclick="toggleManColor()">
+                <img src="men.png" alt="Чоловіча парасоля, чорний">
+                <span class="solo-name">Чорний</span>
+                <span class="solo-state" id="manState">Натисніть, щоб обрати</span>
+            </button>
+            <div class="quantity-wrapper">
+                <span class="quantity-label">Кількість:</span>
+                <div class="quantity-select">
+                    <button type="button" class="quantity-btn" aria-label="Менше" onclick="changeManQty(-1)">−</button>
+                    <input type="text" id="manQty" class="quantity-input" value="0" readonly aria-label="Кількість">
+                    <button type="button" class="quantity-btn" aria-label="Більше" onclick="changeManQty(1)">+</button>
+                </div>
+            </div>
+            <div class="selected-line" id="selected-man">Товар ще не обрано</div>
+        </div>
+
+        <div class="media-section">
+            <div class="media-section-title">Живі фото та огляд</div>
+            <div class="gallery-container" id="gallery-man">
+                <button type="button" class="gallery-arrow gallery-prev" aria-label="Попереднє фото" onclick="changeSlide('man', -1)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="10,3 5,8 10,13"/></svg></button>
+                <div class="gallery-slide active"><img src="zont_m2.png" alt="Фото 1"></div>
+                <div class="gallery-slide"><img src="zont_m1.png" alt="Фото 2"></div>
+                <div class="gallery-slide"><img src="zont _m2.png" alt="Фото 3"></div>
+                <div class="gallery-slide"><img src="zont_m4.png" alt="Фото 4"></div>
+                <div class="gallery-slide"><img src="zont_m5.png" alt="Фото 5"></div>
+                <div class="gallery-slide"><img src="zont_m6.png" alt="Фото 6"></div>
+                <button type="button" class="gallery-arrow gallery-next" aria-label="Наступне фото" onclick="changeSlide('man', 1)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6,3 11,8 6,13"/></svg></button>
+                <span class="gallery-count"></span>
+            </div>
+            <div class="video-container">
+                <video controls preload="auto" autoplay muted loop playsinline>
+                    <source src="men.mp4" type="video/mp4">
+                    Ваш браузер не підтримує відео.
+                </video>
+            </div>
+        </div>
+
+        <div class="specs-section">
+            <div class="specs-title">Характеристики</div>
+            <div class="specs-table">
+                <div class="specs-row"><span class="specs-label">Тип парасолі</span><span class="specs-value">Складний</span></div>
+                <div class="specs-row"><span class="specs-label">Механізм</span><span class="specs-value">Автомат</span></div>
+                <div class="specs-row"><span class="specs-label">Кількість спиць</span><span class="specs-value">14</span></div>
+                <div class="specs-row"><span class="specs-label">Матеріал спиць</span><span class="specs-value">Сталь + карбон</span></div>
+                <div class="specs-row"><span class="specs-label">Тип тканини куполу</span><span class="specs-value">Поліестер</span></div>
+                <div class="specs-row"><span class="specs-label">Система антивітер</span><span class="specs-value">Так</span></div>
+                <div class="specs-row"><span class="specs-label">Довжина у складеному вигляді</span><span class="specs-value">34 см</span></div>
+                <div class="specs-row"><span class="specs-label">Довжина стійки парасольки</span><span class="specs-value">54 см</span></div>
+                <div class="specs-row"><span class="specs-label">Довжина спиці</span><span class="specs-value">57 см</span></div>
+                <div class="specs-row"><span class="specs-label">Діаметр розкритого куполу</span><span class="specs-value">103 см</span></div>
+                <div class="specs-row"><span class="specs-label">Вага</span><span class="specs-value">636 г</span></div>
+                <div class="specs-row"><span class="specs-label">Матеріал ручки</span><span class="specs-value">Пластик</span></div>
+				<div class="specs-row"><span class="specs-label">Торгова марка</span><span class="specs-value">THE BEST</span></div>
+				<div class="specs-row"><span class="specs-label">Країна-виробник</span><span class="specs-value">Китай</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- ЄДИНА ФОРМА ЗАМОВЛЕННЯ -->
+    <!-- ============================================================ -->
+    <section class="order-form-section" id="orderForm">
+        <div class="order-form-title">Оформити замовлення</div>
+        <div class="order-form-desc">Перевірте обраний набір, залиште ім'я та номер телефону — менеджер зателефонує для підтвердження. Оплата лише при отриманні.</div>
+
+        <div class="order-summary">
+            <div class="order-summary-header">
+                <span class="order-summary-heading">Ваш вибір</span>
+                <button type="button" class="clear-all-btn" id="clearAllBtn" onclick="resetAllSelections()" style="display:none;">Очистити все</button>
+            </div>
+            <div id="orderSummaryList"></div>
+            <div class="order-summary-total-row">
+                <span>Разом (<span id="orderSummaryCount">0</span> шт):</span>
+                <span id="orderSummaryTotal">0 грн</span>
+            </div>
+        </div>
+
+        <form class="order-form" id="orderFormEl" onsubmit="submitOrder(event)">
+            <input type="text" id="orderName" class="order-input" placeholder="Ваше ім'я" autocomplete="name" required>
+            <input type="tel" id="orderPhone" class="order-input" placeholder="Номер телефону (+380...)" autocomplete="tel" required>
+            <div class="order-error" id="orderError" role="alert" hidden>Не вдалося надіслати замовлення. Перевірте з'єднання та спробуйте ще раз.</div>
+            <button type="submit" class="order-submit-btn">Замовити</button>
+        </form>
+    </section>
+
+    <!-- ===== ДОСТАВКА ТА ОПЛАТА ===== -->
+    <div class="delivery-info-section">
+        <div class="delivery-info-title">Доставка та оплата</div>
+        <div class="delivery-row">
+            <div class="delivery-row-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h11v10H3z"/><path d="M14 10h4l3 3v3h-7z"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></svg>
+            </div>
+            <div class="delivery-row-text">
+                <h4>Швидка доставка</h4>
+                <p>Новою Поштою та Укрпоштою 1–3 дні по всій Україні.</p>
+            </div>
+        </div>
+        <div class="delivery-row">
+            <div class="delivery-row-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M7 15h4"/></svg>
+            </div>
+            <div class="delivery-row-text">
+                <h4>Оплата при отриманні</h4>
+                <p>Без жодних передоплат. Оплачуйте посилку тільки після особистого огляду на пошті.</p>
+            </div>
+        </div>
+        <div class="footer-links">
+            <a href="politics.html">Політика конфіденційності</a>
+            <a href="ugoda.html">Угода користувача</a>
+            <a href="vozvrat.html">Умови гарантії та повернення</a>
+        </div>
+    </div>
+
+</div>
+
+<!-- ===== НИЖНЯ ПАНЕЛЬ ===== -->
+<div class="floating-bottom-bar">
+    <div class="floating-promo">
+        Обрано: <b id="stickyCount">0</b> шт · <b id="stickyTotal">0 грн</b>
+        <span class="floating-note" id="stickyNote">Від 2 парасоль — знижка 10%</span>
+    </div>
+    <button type="button" class="floating-order-btn" onclick="scrollToOrder()">Оформити</button>
+</div>
+
+<!-- ===== ПОПЕРЕДЖЕННЯ: ПОРОЖНЄ ЗАМОВЛЕННЯ ===== -->
+<div class="custom-alert-overlay" id="emptyOrderAlert" role="dialog" aria-modal="true">
+    <div class="custom-alert-box">
+        <svg class="modal-icon" viewBox="0 0 56 56" fill="none" aria-hidden="true"><circle cx="28" cy="28" r="28" fill="#fff3cc"/><path d="M28 15l14 25H14z" fill="#ffc21a" stroke="#0d3a46" stroke-width="2.4" stroke-linejoin="round"/><path d="M28 24v8" stroke="#0d3a46" stroke-width="2.6" stroke-linecap="round"/><circle cx="28" cy="36" r="1.6" fill="#0d3a46"/></svg>
+        <div class="alert-title">Оберіть товар</div>
+        <div class="alert-message">Будь ласка, оберіть хоча б одну парасолю вище, перш ніж оформити замовлення.</div>
+        <button type="button" class="alert-btn" onclick="closeEmptyOrderAlert()">Обрати товар</button>
+    </div>
+</div>
+
+<!-- ===== ВІКНО: ЗАМОВЛЕННЯ ПРИЙНЯТО ===== -->
+<div class="custom-alert-overlay" id="orderSuccessModal" role="dialog" aria-modal="true">
+    <div class="custom-alert-box">
+        <svg class="modal-icon" viewBox="0 0 56 56" fill="none" aria-hidden="true"><circle cx="28" cy="28" r="28" fill="#e5f6ee"/><circle cx="28" cy="28" r="15" fill="#1d9a66"/><path d="M20.5 28.5l5.5 5.5 9.5-11" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div class="success-title">Дякуємо!</div>
+        <div class="success-message">Ваше замовлення прийнято.<br>Менеджер зв'яжеться з вами найближчим часом для уточнення деталей.</div>
+        <button type="button" class="success-btn" onclick="closeOrderSuccessModal()">Добре</button>
+    </div>
+</div>
+
+<script>
+    // ===== НАЛАШТУВАННЯ =====
+    const DISCOUNT_PERCENT = 10;      // знижка при купівлі 2 та більше парасоль
+    const DISCOUNT_MIN_ITEMS = 2;
+
+    // Telegram Bot (той самий, що на сайті index.html)
+    const TG_TOKEN = '8724582615:AAFONEXZf7cGOTu3kIJggXBklIwPD8vTlA0';
+    const TG_CHAT_ID = '607128150';
+
+    const PRODUCTS = {
+        colors: { name: 'Жіноча парасоля-автомат', price: 879 },
+        man:    { name: 'Чоловіча складна',        price: 799 }
+    };
+    const MAN_COLOR = 'Чорний';
+
+    const state = { colors: new Set(), manQty: 0 };
+    const galleryIndex = { colors: 0, man: 0 };
+
+    // ===== ДОПОМІЖНІ =====
+    function money(n) {
+        return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '\u00A0') + ' грн';
+    }
+
+    function itemLabel(it) {
+        return it.c ? it.p + ' — ' + it.c : it.p;
+    }
+
+    function buildOrderItems() {
+        const items = [];
+        state.colors.forEach(c => items.push({ key: 'colors', p: PRODUCTS.colors.name, c, price: PRODUCTS.colors.price }));
+        for (let i = 0; i < state.manQty; i++) items.push({ key: 'man', p: PRODUCTS.man.name, c: MAN_COLOR, price: PRODUCTS.man.price });
+        return items;
+    }
+
+    // Знижка 10% на все замовлення від 2 парасоль. Копійки відкидаються:
+    // 1758 × 0.9 = 1582.20 → 1582. Множимо на ціле число, щоб уникнути похибок float.
+    function calcOrder(items) {
+        const subtotal = items.reduce((s, it) => s + it.price, 0);
+        const discounted = items.length >= DISCOUNT_MIN_ITEMS;
+        const total = discounted ? Math.floor(subtotal * (100 - DISCOUNT_PERCENT) / 100) : subtotal;
+        return { subtotal, total, discounted, saved: subtotal - total };
+    }
+
+    // ===== ВИБІР ТОВАРІВ =====
+    document.querySelectorAll('.colors-grid').forEach(grid => {
+        grid.addEventListener('click', e => {
+            const card = e.target.closest('.color-card');
+            if (!card) return;
+            const key = grid.dataset.product;
+            const name = card.dataset.color;
+            if (state[key].has(name)) state[key].delete(name); else state[key].add(name);
+            render();
+        });
+    });
+
+    function toggleManColor() {
+        // клік по картці збільшує кількість, якщо вона ще 0; якщо вже обрано — знімає вибір
+        state.manQty = state.manQty === 0 ? 1 : 0;
+        render();
+    }
+
+    function changeManQty(delta) {
+        state.manQty = Math.max(0, state.manQty + delta);
+        render();
+    }
+
+    function removeSummaryItem(key, colorName) {
+        if (key === 'man') state.manQty = Math.max(0, state.manQty - 1);
+        else state[key].delete(colorName);
+        render();
+    }
+
+    function resetAllSelections() {
+        state.colors.clear();
+        state.manQty = 0;
+        render();
+    }
+
+    // ===== ВІДМАЛЬОВКА =====
+    function render() {
+        // картки кольорів
+        document.querySelectorAll('.colors-grid').forEach(grid => {
+            const key = grid.dataset.product;
+            grid.querySelectorAll('.color-card').forEach(card => {
+                card.setAttribute('aria-pressed', state[key].has(card.dataset.color) ? 'true' : 'false');
+            });
+        });
+        const colors = Array.from(state.colors);
+        document.getElementById('selected-colors').textContent = colors.length ? 'Обрано: ' + colors.join(', ') : 'Кольори ще не обрано';
+
+        // чоловіча
+        document.getElementById('manColorCard').setAttribute('aria-pressed', state.manQty > 0 ? 'true' : 'false');
+        document.getElementById('manState').textContent = state.manQty > 0 ? 'Обрано' : 'Натисніть, щоб обрати';
+        document.getElementById('manQty').value = state.manQty;
+        document.getElementById('selected-man').textContent = state.manQty > 0 ? `Обрано: ${MAN_COLOR} × ${state.manQty}` : 'Товар ще не обрано';
+
+        updateSummary();
+    }
+
+    function updateSummary() {
+        const items = buildOrderItems();
+        const count = items.length;
+        const { subtotal, total, discounted, saved } = calcOrder(items);
+
+        // нижня панель
+        document.getElementById('stickyCount').textContent = count;
+        document.getElementById('stickyTotal').textContent = money(total);
+        document.getElementById('stickyNote').textContent =
+            discounted ? `Знижка ${DISCOUNT_PERCENT}% застосована`
+            : count === 1 ? `Ще одна парасоля — і знижка ${DISCOUNT_PERCENT}%`
+            : `Від ${DISCOUNT_MIN_ITEMS} парасоль — знижка ${DISCOUNT_PERCENT}%`;
+
+        // список у формі
+        const listEl = document.getElementById('orderSummaryList');
+        if (count === 0) {
+            listEl.innerHTML = '<p class="empty-summary">Ви ще нічого не обрали вище.</p>';
+        } else {
+            listEl.innerHTML = items.map(it =>
+                `<div class="summary-item"><span>${itemLabel(it)}</span>` +
+                `<div class="summary-item-right"><span class="summary-item-price">${money(it.price)}</span>` +
+                `<button type="button" class="summary-item-remove" data-key="${it.key}" data-color="${it.c}" aria-label="Видалити">✕</button></div></div>`
+            ).join('')
+            + (count === 1 ? `<div class="summary-hint">Додайте ще одну парасолю — і отримаєте знижку ${DISCOUNT_PERCENT}% на все замовлення.</div>` : '')
+            + (discounted ? `<div class="order-summary-old-row"><span>Звичайна ціна за ${count} шт:</span><span>${money(subtotal)}</span></div>` : '')
+            + (discounted ? `<div class="order-summary-discount-banner">Знижка ${DISCOUNT_PERCENT}% застосована — економія ${money(saved)}</div>` : '');
+        }
+
+        document.getElementById('clearAllBtn').style.display = count > 0 ? 'inline' : 'none';
+        document.getElementById('orderSummaryCount').textContent = count;
+        document.getElementById('orderSummaryTotal').textContent = money(total);
+    }
+
+    document.getElementById('orderSummaryList').addEventListener('click', e => {
+        const btn = e.target.closest('.summary-item-remove');
+        if (btn) removeSummaryItem(btn.dataset.key, btn.dataset.color);
+    });
+
+    // ===== ГАЛЕРЕЇ =====
+    function updateGalleryCount(key) {
+        const box = document.getElementById('gallery-' + key);
+        const total = box.querySelectorAll('.gallery-slide').length;
+        box.querySelector('.gallery-count').textContent = (galleryIndex[key] + 1) + ' / ' + total;
+    }
+
+    function changeSlide(key, direction) {
+        const slides = document.querySelectorAll('#gallery-' + key + ' .gallery-slide');
+        slides[galleryIndex[key]].classList.remove('active');
+        let idx = galleryIndex[key] + direction;
+        if (idx >= slides.length) idx = 0;
+        if (idx < 0) idx = slides.length - 1;
+        galleryIndex[key] = idx;
+        slides[idx].classList.add('active');
+        updateGalleryCount(key);
+    }
+
+    function initGalleries() {
+        Object.keys(galleryIndex).forEach(key => {
+            const box = document.getElementById('gallery-' + key);
+            if (!box) return;
+            if (box.querySelectorAll('.gallery-slide').length < 2) box.classList.add('single');
+            updateGalleryCount(key);
+        });
+    }
+
+    // ===== ОФОРМЛЕННЯ =====
+    function scrollToOrder() {
+        if (buildOrderItems().length === 0) {
+            document.getElementById('emptyOrderAlert').style.display = 'flex';
+            return;
+        }
+        document.getElementById('orderForm').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function closeEmptyOrderAlert() {
+        document.getElementById('emptyOrderAlert').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    let isSubmitting = false;
+
+    function setSubmitting(on) {
+        isSubmitting = on;
+        const btn = document.querySelector('#orderFormEl .order-submit-btn');
+        if (!btn) return;
+        btn.disabled = on;
+        btn.textContent = on ? 'Відправляємо...' : 'Замовити';
+    }
+
+    async function submitOrder(event) {
+        event.preventDefault();
+        if (isSubmitting) return; // захист від дублювання замовлень
+
+        const items = buildOrderItems();
+        if (items.length === 0) {
+            document.getElementById('emptyOrderAlert').style.display = 'flex';
+            return;
+        }
+
+        const name = document.getElementById('orderName').value.trim();
+        const phone = document.getElementById('orderPhone').value.trim();
+        if (!name || !phone) return;
+
+        const { total, discounted, saved } = calcOrder(items);
+        const errorEl = document.getElementById('orderError');
+        errorEl.hidden = true;
+        setSubmitting(true);
+
+        const itemsText = items.map(it => `• ${itemLabel(it)} — ${it.price} грн`).join('\n');
+        const message =
+            `🛍️ Нове замовлення з лендингу!\n` +
+            `👤 Ім'я: ${name}\n` +
+            `📞 Телефон: ${phone}\n\n` +
+            `${itemsText}\n\n` +
+            (discounted ? `🎁 Знижка ${DISCOUNT_PERCENT}% (від ${DISCOUNT_MIN_ITEMS} парасоль): −${saved} грн\n` : '') +
+            `💰 Сума: ${total} грн`;
+
+        let sent = false;
+        try {
+            const res = await fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ chat_id: TG_CHAT_ID, text: message })
+            });
+            sent = res.ok;
+        } catch (error) {
+            console.error('Помилка Telegram:', error);
+        }
+
+        if (!sent) {
+            setSubmitting(false);
+            errorEl.hidden = false;
+            return;
+        }
+
+        if (typeof fbq === 'function') {
+            fbq('track', 'Lead', { value: total, currency: 'UAH', content_name: 'Landing_3_products' });
+        }
+
+        document.getElementById('orderFormEl').reset();
+        document.getElementById('orderSuccessModal').style.display = 'flex';
+    }
+
+    function closeOrderSuccessModal() {
+        document.getElementById('orderSuccessModal').style.display = 'none';
+        setSubmitting(false);
+        resetAllSelections();
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        initGalleries();
+        render();
+    });
+
+    // ===== «Зараз переглядають сайт» — імітація живих переглядів =====
+    (function () {
+        const el = document.getElementById('lvCount');
+        if (!el) return;
+        const sequence = [5, 3, 8, 6, 4, 9, 5, 7];
+        let i = 0;
+        function nextValue() {
+            i = (i + 1) % sequence.length;
+            el.style.opacity = '0';
+            setTimeout(() => {
+                el.textContent = sequence[i];
+                el.style.opacity = '1';
+            }, 250);
+        }
+        setInterval(nextValue, 8000 + Math.random() * 6000);
+    })();
+</script>
+
+</body>
+</html>
